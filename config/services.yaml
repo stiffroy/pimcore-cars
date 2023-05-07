@@ -71,5 +71,9 @@ services:
 
     # Example event listener for objects
     App\EventListener\PimcoreAdminListener:
-     tags:
+        tags:
          - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: addJSFiles }
+
+    # All custom services
+    App\Service\:
+        resource: '../src/Service/*'

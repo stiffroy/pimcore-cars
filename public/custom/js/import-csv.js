@@ -5,9 +5,17 @@ document.addEventListener(pimcore.events.postOpenAsset, (e) => {
             iconCls: 'pimcore_icon_import',
             scale: 'small',
             handler: function (obj) {
-                //do some stuff here, e.g. open a new window with an PDF download
-                console.log(e.detail.asset.data.id);
-            }.bind(this, e.detail.object)
+                const path = "/api/import/cars/" + e.detail.asset.id;
+                let xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState === 4 && this.status === 200) {
+                        let response = JSON.parse(this.responseText);
+                        alert(response.message);
+                    }
+                };
+                xhttp.open("GET", path, true);
+                xhttp.send();
+            }.bind(this, e.detail.asset)
         });
         pimcore.layout.refresh();
     }
